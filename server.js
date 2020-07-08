@@ -3,7 +3,6 @@ var logger = require("morgan");
 var mongoose = require("mongoose");
 var axios = require("axios");
 var cheerio = require("cheerio");
-var handlebars = require("express-handlebars");
 
 // Require all models
 var db = require("./models");
@@ -23,8 +22,17 @@ app.use(express.json());
 // Make public a static folder
 app.use(express.static("public"));
 
+// Set Handlebars.
+var exphbs = require("express-handlebars");
+var Handlebars = require("handlebars");
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
+
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/scraper", { useNewUrlParser: true });
+// mongoose.connect("mongodb://localhost/scraper", { useNewUrlParser: true });
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/scraper";
+mongoose.connect(MONGODB_URI);
+
 
 // Routes
 
@@ -41,8 +49,8 @@ app.get("/scrape", function(req, res) {
       var result = {};
 
       // Add the text and href of every link, and save them as properties of the result object
-      result.title = $(element).children().text();
-      result.link = $(element).find("a").attr("href");
+      result.title = $(element).find("h2").text();
+      result.link = "https://www.nytimes.com" + $(element).find("a").attr("href");
 
       // Create a new Article using the `result` object built from scraping
       db.Article.create(result)
