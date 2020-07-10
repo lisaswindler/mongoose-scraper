@@ -1,27 +1,4 @@
-body {
-    
-}
-
-#wrapper {
-
-}
-
-#articles {
-
-}
-
-#notes {
-
-}
-
-textarea, input {
-
-}
-
-input {
-
-}
-
-textarea {
-
+.fa-remove {
+    cursor: pointer;
+    color: red;
 }

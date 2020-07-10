@@ -3,14 +3,14 @@ $.getJSON("/articles", function (data) {
     // For each one
     for (var i = 0; i < data.length; i++) {
         // Display the apropos information on the page
-        var headline = "<h3><a target='_blank' href='" + data[i].link + "'>" + data[i].title + "</a></h3>";
+        var headline = "<h3 class='pt-3'><a target='_blank' href='" + data[i].link + "'>" + data[i].title + "</a></h3>";
         var newsImage = "<img class='img-fluid' src='" + data[i].image + "'>";
         var author = "<p class='author'>" + data[i].author + "</p>";
-        var commentBox = "<textarea class='bodyinput' id='input-" + data[i]._id + "' name='body' placeholder='Comment'></textarea>";
-        var commentPost = "<button class='btn btn-primary savenote' data-id='" + data[i]._id + "' id='savenote'>Post</button>";
+        var commentBox = "<br><textarea class='bodyinput my-2' id='input-" + data[i]._id + "' name='body' placeholder='Comment'></textarea><br>";
+        var commentPost = "<button class='btn btn-primary mr-2 savenote' data-id='" + data[i]._id + "' id='savenote'>Post</button>";
         var commentButton = "<button class='btn btn-primary' data-id='" + data[i]._id + "' id='comments'>Show Comments</button>";
         var commentDiv = "<div id='" + data[i]._id + "'></div>";
-        $("#articles").append(headline, newsImage, author, commentBox, commentPost, commentButton, commentDiv);
+        $("#articles").append(headline, author, newsImage, commentBox, commentPost, commentButton, commentDiv);
     }
 });
 
@@ -46,7 +46,7 @@ $(document).on("click", "#comments", function () {
                         // With that done, add the note information to the page
                         .then(function (data) {
                             console.log(data[0].body);
-                            $('#' + thisId).append('<div>' + data[0].body + '<i class="fa fa-remove delete" id="' + noteId + '"></i></div>');
+                            $('#' + thisId).append('<div class="pt-1">' + data[0].body + '<i class="fa fa-remove delete pl-2" id="' + noteId + '"></i></div>');
                         });
                 }
             } else {
