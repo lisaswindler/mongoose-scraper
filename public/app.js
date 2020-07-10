@@ -23,8 +23,6 @@ $(document).on("click", "#scrape-articles", function() {
 
 // Whenever someone clicks a p tag
 $(document).on("click", "#comments", function() {
-  // Empty the notes from the note section
-//   $("#notes").empty();
   // Save the id from the p tag
   var thisId = $(this).attr("data-id");
   // Now make an ajax call for the Article
