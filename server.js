@@ -31,7 +31,13 @@ app.set("view engine", "handlebars");
 // Connect to the Mongo DB
 // mongoose.connect("mongodb://localhost/scraper", { useNewUrlParser: true });
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/scraper";
-mongoose.connect(MONGODB_URI);
+const options = {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+    family: 4
+  };
+mongoose.connect(MONGODB_URI,options)
 
 // Routes
 app.get("/", function (req, res) {
