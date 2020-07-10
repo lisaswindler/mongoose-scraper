@@ -81,7 +81,7 @@ app.get("/scrape", function (req, res) {
 // Route for getting all Articles from the db
 app.get("/articles", function (req, res) {
     // TODO: Finish the route so it grabs all of the articles
-    db.Article.find({})
+    db.Article.find().sort({_id: -1})
         .then(function (dbArticle) {
             // If all Notes are successfully found, send them back to the client
             res.json(dbArticle);
@@ -94,8 +94,6 @@ app.get("/articles", function (req, res) {
 
 // Route for grabbing a specific Article by id, populate it with its note
 app.get("/articles/:id", function (req, res) {
-    // TODO
-    // ====
     // Finish the route so it finds one article using the req.params.id,
     // and run the populate method with "note",
     // then responds with the article with the note included
@@ -112,13 +110,21 @@ app.get("/articles/:id", function (req, res) {
         });
 });
 
+// Route for grabbing a specific Note by id
+app.get("/notes/:id", function (req, res) {
+    db.Note.find({ _id: req.params.id })
+        .then(function (dbArticle) {
+            // If any Libraries are found, send them to the client with any associated comments
+            res.json(dbArticle);
+        })
+        .catch(function (err) {
+            // If an error occurs, send it back to the client
+            res.json(err);
+        });
+});
+
 // Route for saving/updating an Article's associated Note
 app.post("/articles/:id", function (req, res) {
-    // TODO
-    // ====
-    // save the new note that gets posted to the Notes collection
-    // then find an article from the req.params.id
-    // and update its "note" property with the _id of the new note
     db.Note.create(req.body)
         .then(function (dbNote) {
             db.Article.findOneAndUpdate({ _id: req.params.id }, { $push: { note: dbNote._id } }, { new: true })
@@ -127,7 +133,6 @@ app.post("/articles/:id", function (req, res) {
                     res.json(dbArticle);
                 })
                 .catch(function (err) {
-                    // If an error occurred, send it to the client
                     res.json(err);
                 });
         })
@@ -137,12 +142,11 @@ app.post("/articles/:id", function (req, res) {
 });
 
 //Route for deleting a note
-app.delete("/articles/:id", function(req, res) {
+app.delete("/notes/:id", function(req, res) {
   db.Note.deleteOne({ _id: req.params.id })
   .then(function(removed) {
     res.json(removed);
   }).catch(function(err,removed) {
-      // If an error occurred, send it to the client
         res.json(err);
     });
 });
