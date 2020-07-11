@@ -1,6 +1,27 @@
-    <div class="container-fluid py-3" id="wrapper">
-        <button class="btn btn-primary float-right" id="scrape-articles">Scrape Articles</button>
-        <h1>Salt Lake Tribune Scraper</h1>
-        <div id="articles"></div>
-        <div id="notes"></div>
+<div class="container-fluid px-0">
+    <nav class="mb-1 navbar navbar-expand-lg navbar-dark info-color">
+        <a class="navbar-brand" href="#">
+            <h3 class="header">The Salt Lake Tribune <span class="subtitle">Scraper</span></h3>
+        </a>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <div id="scrape-articles" class="scrape-text"><i class="fa fa-refresh mr-2"></i>Scrape Articles</div>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="container px-0">
+        <div class="row">
+            <div class="col">
+                <div class="card-columns" id="articles">
+                </div>
+            </div>
+        </div>
     </div>
+</div>
+
+<div class="footer-text text-center small pb-1">
+    <a href="https://www.sltrib.com" target="_blank"><i class="fa fa-newspaper-o pr-1" aria-hidden="true"></i> Articles by The Salt Lake Tribune</a> | <a
+        href="https://github.com/lisaswindler/mongoose-scraper" target="_blank"><i class="fa fa-github pr-1" aria-hidden="true"></i>
+        GitHub</a>
+</div>

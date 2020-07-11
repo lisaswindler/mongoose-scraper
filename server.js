@@ -7,7 +7,7 @@ var cheerio = require("cheerio");
 // Require all models
 var db = require("./models");
 
-var PORT =  process.env.PORT || 3000;
+var PORT = process.env.PORT || 3000;
 
 // Initialize Express
 var app = express();
@@ -36,8 +36,8 @@ const options = {
     useCreateIndex: true,
     useFindAndModify: false,
     family: 4
-  };
-mongoose.connect(MONGODB_URI,options)
+};
+mongoose.connect(MONGODB_URI, options)
 
 // Routes
 app.get("/", function (req, res) {
@@ -56,7 +56,7 @@ app.get("/scrape", function (req, res) {
             var result = {};
 
             // Add the text and href of every link, and save them as properties of the result object
-            result.title = $(element).find(".headline").text();
+            result.title = $(element).find(".headline").text().trim();
             result.image = $(element).find("a").find("img").attr("data-original");
             result.author = $(element).find(".author-container").text();
             result.link = "https://www.sltrib.com" + $(element).find("a").attr("href");
@@ -72,7 +72,6 @@ app.get("/scrape", function (req, res) {
                     console.log(err);
                 });
         });
-
         // Send a message to the client
         res.send("Scrape Complete");
     });
@@ -81,7 +80,7 @@ app.get("/scrape", function (req, res) {
 // Route for getting all Articles from the db
 app.get("/articles", function (req, res) {
     // TODO: Finish the route so it grabs all of the articles
-    db.Article.find().sort({_id: -1})
+    db.Article.find().sort({ _id: -1 })
         .then(function (dbArticle) {
             // If all Notes are successfully found, send them back to the client
             res.json(dbArticle);
@@ -92,11 +91,8 @@ app.get("/articles", function (req, res) {
         });
 });
 
-// Route for grabbing a specific Article by id, populate it with its note
+// Route for grabbing a specific Article by id, populate it with its comments
 app.get("/articles/:id", function (req, res) {
-    // Finish the route so it finds one article using the req.params.id,
-    // and run the populate method with "note",
-    // then responds with the article with the note included
     db.Article.find({ _id: req.params.id })
         // Specify that we want to populate the retrieved libraries with any associated comments
         .populate("Note")
@@ -123,7 +119,7 @@ app.get("/notes/:id", function (req, res) {
         });
 });
 
-// Route for saving/updating an Article's associated Note
+// Route for saving an Article's associated comments
 app.post("/articles/:id", function (req, res) {
     db.Note.create(req.body)
         .then(function (dbNote) {
@@ -141,15 +137,30 @@ app.post("/articles/:id", function (req, res) {
         })
 });
 
-//Route for deleting a note
-app.delete("/notes/:id", function(req, res) {
-  db.Note.deleteOne({ _id: req.params.id })
-  .then(function(removed) {
-    res.json(removed);
-  }).catch(function(err,removed) {
-        res.json(err);
-    });
+//Route for deleting a comment
+app.delete("/notes/:id", function (req, res) {
+    db.Note.deleteOne({ _id: req.params.id })
+        .then(function (removed) {
+            res.json(removed);
+        }).catch(function (err, removed) {
+            res.json(err);
+        });    
 });
+
+app.delete("/articles/:id", function (req, res) {
+    console.log(req.body.data);
+    console.log(req.params.id);
+    // db.Article.update({ _id: req.params.id }, { $pull: { note: req.body.noteId } } )
+    //     .then(function (dbArticle) {
+    //         console.log(dbArticle);
+    //         res.json(dbArticle);
+    //     })
+    //     .catch(function (err) {
+    //         res.json(err);
+    //     });
+});
+
+
 
 // Start the server
 app.listen(PORT, function () {

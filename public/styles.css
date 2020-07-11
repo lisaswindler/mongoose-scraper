@@ -1,4 +1,115 @@
 .fa-remove {
     cursor: pointer;
-    color: red;
+    color: #b56576;
+}
+
+.fa-remove:hover {
+    color: #355070;
+}
+
+.header {
+    font-family: 'Grenze Gotisch', cursive;
+    text-align: center;
+    font-size: 40px;
+    word-spacing: .08em;
+}
+
+.subtitle {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 30px;
+}
+
+.navbar {
+    background: -webkit-linear-gradient(left, rgba(109,89,122,1) 0%, rgba(181,101,118,1) 49%, rgba(229,107,111,1) 100%);
+}
+
+.scrape-text {
+    cursor: pointer;
+    color: white;
+    font-size: 20px;
+}
+
+.scrape-text:hover {
+    color: #355070;
+}
+
+body {
+    background-color: #355070;
+    font-family: 'Lato', sans-serif;
+}
+
+.img-fluid {
+    width: 100%;
+    height: auto;
+}
+
+.btn-primary {
+    background-color: #e56b6f;
+    border: none;
+    margin: 0px 8px 5px 0px;
+}
+
+.btn-primary:hover, btn-primary:focus {
+    background-color: #6d597a;
+}
+
+.col {
+    padding: 20px 10px;
+    margin: auto;
+}
+
+@media only screen and (max-width: 600px) {
+    .header {
+        text-align: center;
+        font-size: 30px;
+    }
+    .subtitle {
+        font-size: 20px;
+    }
+  }
+
+.card {
+    padding: 10px;
+    margin-bottom: 1.2rem !important;
+}
+
+textarea {
+    width: 100%;
+    background-color: rgb(240, 240, 240);
+    border: none;
+    padding: 5px;
+    margin: 10px 0px 5px 0px;
+}
+
+a:link, a:visited {
+    color: #6d597a;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #355070;
+}
+
+hr {
+    margin: .5rem;
+}
+
+.author {
+    color: rgb(155, 155, 155);
+}
+
+.comments {
+    border-radius: 4px;
+    background-color: rgb(240, 240, 240);
+    margin: 5px 0px;
+    padding: 4px;
+    color: #7a7a7a;
+}
+
+.footer-text a {
+    color: rgb(240, 240, 240);
+}
+
+.footer-text a:hover {
+    color: #e56b6f;
 }
